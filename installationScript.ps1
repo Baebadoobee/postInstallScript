@@ -24,7 +24,8 @@ $options = @(
     " 2. Select package groups"
     " 3. Quit"
 )
-$padding = [math]::Max(0, $width - $combinedLength);
+
+# $padding = [math]::Max(0, $width - $combinedLength);
 
 #------------------------------------------------------------------------------------------
 # TUI
