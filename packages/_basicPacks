@@ -1,0 +1,21 @@
+# Basic packages
+alacritty
+alsa-utils
+device-mapper
+git
+grim
+lapack
+libnotify
+links
+linux-headers
+mesa
+neofetch
+ninja
+pipewire
+pulseaudio
+pulseaudio-alsa
+sddm
+wget
+xorg-server
+xorg-xinit
+xorg-apps

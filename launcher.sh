@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-# Connectiong to the internet
+# Connecting to the internet
+# Unccoment the following line if you are using wifi
 # nmcli device wifi '<ID>' password '<PASSWORD>'
 
 # Basic packages
@@ -8,10 +9,8 @@ pacman -S --disable-download-timeout --noconfirm --quiet alacritty alsa-utils de
 
 # Yay installation
 git clone https://aur.archlinux.org/yay-bin.git $HOME/yay-bin
-cd $HOME/yay-bin
-makepkg -si
-cd $HOME/.pIS
+makepkg -siD $HOME/yay-bin
 
 # Installation script setup
 yay -S powershell-bin
-pwsh --noprofile -NoLogo -NoExit -c "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; ./$HOME/.pIS/installationScript.ps1"
+pwsh --noprofile -NoLogo -NoExit -c "./$HOME/.pIS/installationScript.ps1"

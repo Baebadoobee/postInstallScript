@@ -37,7 +37,7 @@
     - If no parameters are provided, the function will not install any packages.
 
 #>
-function Install-DotfilesPackages {
+function Install-PIPackages {
     [CmdletBinding()]
     param (
         [Parameter(Position = 0, Mandatory = $false)]
@@ -54,19 +54,24 @@ function Install-DotfilesPackages {
     )
     
     begin {
-        # Utility
-        $utilityPacks = (Get-Content "$env:pISHome/packages/_utilityPacks" | Where-Object { $_ -notmatch '^#' });
-
-        # Hyprland
-        $hyprPacks = (Get-Content "$env:pISHome/packages/_hyprPacks" | Where-Object { $_ -notmatch '^#' });
-
-        # Appearances
-        $appearancePacks = (Get-Content "$env:pISHome/packages/_appearancePacks" | Where-Object { $_ -notmatch '^#' });
-
-        # Software
-        $softwarePacks = (Get-Content "$env:pISHome/packages/_softwarePacks" | Where-Object { $_ -notmatch '^#' });
-
         $ErrorActionPreference = "Stop";
+        try {
+            # Utility
+            $utilityPacks = (Get-Content "$env:pISHome/packages/_utilityPacks" | Where-Object { $_ -notmatch '^#' });
+
+            # Hyprland
+            $hyprPacks = (Get-Content "$env:pISHome/packages/_hyprPacks" | Where-Object { $_ -notmatch '^#' });
+
+            # Appearances
+            $appearancePacks = (Get-Content "$env:pISHome/packages/_appearancePacks" | Where-Object { $_ -notmatch '^#' });
+
+            # Software
+            $softwarePacks = (Get-Content "$env:pISHome/packages/_softwarePacks" | Where-Object { $_ -notmatch '^#' });
+        }
+        catch {
+            Write-Output "Error reading package files: $_";
+            continue;
+        }      
     }
     
     process {
