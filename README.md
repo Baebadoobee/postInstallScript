@@ -42,17 +42,17 @@
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-After a clean install, run the following:
+After a Arch fresh installation, run the following:
 
 ```sh
 ./launcher.sh
 ```
 
-_For a deeper understanding, please refer to the modules documentation_
+_For a deeper comprehension, please refer to the modules documentation_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Top contributors:
+### Contributors:
 
 <a href="https://github.com/Baebadoobee/postInstallScript/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Baebadoobee/postInstallScript" alt="contrib.rocks image" />

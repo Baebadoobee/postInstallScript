@@ -15,5 +15,4 @@ cd ~
 
 # Installation script setup
 yay -S powershell-bin
-chmod +x installationScript.ps1
-pwsh --noprofile -NoLogo -NoExit -c "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; $PSScriptRoot/installationScript.ps1"
+pwsh --noprofile -NoLogo -NoExit -c "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser; ./installationScript.ps1"
