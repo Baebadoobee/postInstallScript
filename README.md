@@ -31,7 +31,7 @@
    ```sh
    git clone https://github.com/Baebadoobee/postInstallScript.git
    ```
-2. Make ```sh launcher.sh ``` and ```sh installationScript.ps1 ``` files executable:
+2. Make ``` launcher.sh ``` and ``` installationScript.ps1 ``` files executable:
    
    ```sh
    cd postInstallScript
