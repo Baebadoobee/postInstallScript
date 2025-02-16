@@ -60,13 +60,13 @@ function Install-DotfilesPackages {
         $utilityPacks = (Get-Content "$PSScriptRoot/packages/_utilityPacks.txt" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
 
         # Hyprland
-        $hyprPacks = (Get-Content "$PSScriptRoot\packages\_hyprPacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
+        $hyprPacks = (Get-Content "$PSScriptRoot/packages/_hyprPacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
 
         # Appearances
-        $appearancePacks = (Get-Content "$PSScriptRoot\packages\_appearancePacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
+        $appearancePacks = (Get-Content "$PSScriptRoot/packages/_appearancePacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
 
         # Software
-        $softwarePacks = (Get-Content "$PSScriptRoot\packages\_softwarePacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
+        $softwarePacks = (Get-Content "$PSScriptRoot/packages/_softwarePacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
     }
     
     process {
