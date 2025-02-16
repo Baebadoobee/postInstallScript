@@ -28,3 +28,4 @@ foreach ($option in $options){
 }
 [System.Console]::WriteLine("|" + " " * ($width - 2) + "|")
 [System.Console]::WriteLine("+$menuHeader+")
+Write-Host "";
