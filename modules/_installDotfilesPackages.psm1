@@ -56,8 +56,6 @@ function Install-DotfilesPackages {
     begin {
         $ErrorActionPreference = "Stop";
 
-        # Lê o conteúdo do arquivo, remove linhas que começam com '#', e junta as linhas em uma única string separada por espaços
-
         # Utility
         $utilityPacks = (Get-Content "$PSScriptRoot/packages/_utilityPacks.txt" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
 
