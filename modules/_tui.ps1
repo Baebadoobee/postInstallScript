@@ -28,7 +28,3 @@ foreach ($option in $options){
 }
 [System.Console]::WriteLine("|" + " " * ($width - 2) + "|")
 [System.Console]::WriteLine("+$menuHeader+")
-
-# Read entry
-Write-Host "";
-$actionTui = (([System.Console]::ReadKey($true)) | Select-Object KeyChar).KeyChar;

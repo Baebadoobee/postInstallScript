@@ -12,6 +12,10 @@ New-Alias -Name idpack -Value Install-DotfilesPackages -Description "Installs do
 $ErrorActionPreference = "Stop";
 do { Clear-Host; #* Starts the TUI loop
 & $PSScriptRoot/modules/_tui.ps1;
+
+# Read entry
+Write-Host "";
+$actionTui = (([System.Console]::ReadKey($true)) | Select-Object KeyChar).KeyChar;
 #-------------------------
 
 switch ($actionTui) {
