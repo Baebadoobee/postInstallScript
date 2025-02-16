@@ -54,35 +54,35 @@ function Install-DotfilesPackages {
     )
     
     begin {
-        $ErrorActionPreference = "Stop";
-
         # Utility
-        $utilityPacks = (Get-Content "$PSScriptRoot/packages/_utilityPacks.txt" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
+        $utilityPacks = (Get-Content "$env:pISHome/packages/_utilityPacks" | Where-Object { $_ -notmatch '^#' });
 
         # Hyprland
-        $hyprPacks = (Get-Content "$PSScriptRoot/packages/_hyprPacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
+        $hyprPacks = (Get-Content "$env:pISHome/packages/_hyprPacks" | Where-Object { $_ -notmatch '^#' });
 
         # Appearances
-        $appearancePacks = (Get-Content "$PSScriptRoot/packages/_appearancePacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
+        $appearancePacks = (Get-Content "$env:pISHome/packages/_appearancePacks" | Where-Object { $_ -notmatch '^#' });
 
         # Software
-        $softwarePacks = (Get-Content "$PSScriptRoot/packages/_softwarePacks" | Where-Object { $_ -notmatch '^#' } | ForEach-Object { $_.Trim() }) -join ' ';
+        $softwarePacks = (Get-Content "$env:pISHome/packages/_softwarePacks" | Where-Object { $_ -notmatch '^#' });
+
+        $ErrorActionPreference = "Stop";
     }
     
     process {
         try {
             switch ($PSCmdlet.MyInvocation.BoundParameters.Keys) {
                 "Utility" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $utilityPacks;
+                       yay -S --disable-download-timeout --noconfirm --quiet $($utilityPacks);
                 }
                 "Hyprland" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $hyprPacks;
+                        yay -S --disable-download-timeout --noconfirm --quiet $($hyprPacks);
                 }
                 "Appearance" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $appearancePacks;
+                        yay -S --disable-download-timeout --noconfirm --quiet $($appearancePacks);
                 }
                 "Software" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $softwarePacks;
+                        yay -S --disable-download-timeout --noconfirm --quiet $($softwarePacks);
                 }
                 default {
                     Write-Output "No packages selected";

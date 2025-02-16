@@ -26,10 +26,10 @@
 <!-- ABOUT THE PROJECT -->
 ## Installation
 
-1. Clone the repo:
+1. Clone the repo into your home folder:
 
    ```sh
-   git clone https://github.com/Baebadoobee/postInstallScript.git
+   git clone https://github.com/Baebadoobee/postInstallScript.git .pIS
    ```
 2. Make ``` launcher.sh ``` and ``` installationScript.ps1 ``` files executable:
    

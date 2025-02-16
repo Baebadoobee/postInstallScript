@@ -5,6 +5,7 @@ Import-Module "$PSScriptRoot/modules/_postInstallationPackages.psm1";
 
 # You can call the function with the following alias:
 New-Alias -Name idpack -Value Install-DotfilesPackages -Description "Installs dotfiles packages" -Force;
+$env:pISHome = "$env:HOME/.pIS";
 
 #-------------------------
 # Post installation script
@@ -26,7 +27,7 @@ switch ($actionTui) {
 
         foreach ($packageGroup in $packageGroups.Split(" ")) {
             try {
-                switch ($_) {
+                switch ($packageGroup) {
                     "utility" {  
                         idpack -Utility;
                     }
