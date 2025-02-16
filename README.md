@@ -39,8 +39,6 @@
    chmod +x installationScript.ps1
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
