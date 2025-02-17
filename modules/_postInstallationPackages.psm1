@@ -101,22 +101,22 @@ function Install-PIPackages {
         try {
             switch ($PSCmdlet.MyInvocation.BoundParameters.Keys) {
                 "Basic" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $($basicPacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet --needed $($basicPacks);
                 }
                 "Utility" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $($utilityPacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet --needed $($utilityPacks);
                 }
                 "Hyprland" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $($hyprPacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet --needed $($hyprPacks);
                 }
                 "Appearance" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $($appearancePacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet --needed $($appearancePacks);
                 }
                 "Software" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $($softwarePacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet --needed $($softwarePacks);
                 }
                 "Path" {
-                    yay -S --disable-download-timeout --noconfirm --quiet $($userPathPacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet --needed $($userPathPacks);
                 }
                 default {
                     Write-Output "No packages selected";
