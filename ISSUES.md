@@ -3,6 +3,10 @@
 - The reference path for $PSScriptRoot is located to the module folder [**Solved** - see C1.]
 - The list of packages seem to be considered as a single name [**Solved** - see C2.]
 
+### Some notes
+
+- Add a section to README.md on how to add the user pwsh modules and how to make a alias to use `idpack` direct from the terminal.
+
 <!-- 
 
 !Expanded comments on problems.
