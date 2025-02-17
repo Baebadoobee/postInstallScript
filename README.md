@@ -31,10 +31,10 @@
    ```sh
    git clone https://github.com/Baebadoobee/postInstallScript.git .pIS
    ```
-2. Make ``` launcher.sh ``` and ``` installationScript.ps1 ``` files executable:
+2. Make `launcher.sh` and `installationScript.ps1` files executable to ensure they can be run as scripts:
    
    ```sh
-   cd postInstallScript
+   cd .pIS
    chmod +x launcher.sh
    chmod +x installationScript.ps1
    ```
@@ -42,7 +42,7 @@
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-After a Arch fresh installation, run the following:
+After a fresh Arch Linux installation, run the following:
 
 ```sh
 ./launcher.sh
@@ -52,9 +52,11 @@ After a Arch fresh installation, run the following:
 
 First, I want to be clear about some design choices. 
 - I decided to split the package list in five different files because some packages take longer and I found useful to split packages by groups. 
-- I also decided to use a simple TUI for the subsequent reasons: **a)** I still have some limitations when it comes to proper programming with other languages that would make the interface look better; and **b)** I wanted to make it simple to use and understand the usage.
+- I also decided to use a simple TUI for the subsequent reasons:
+  - a) I still have some limitations when it comes to proper programming with other languages that would make the interface look better.
+  - b) I wanted to make it simple to use and understand the usage.
 
-You can also add the ```_postInstallationPackage.psm1``` file to your PowerShell modules path. 
+You can also add the `_postInstallationPackage.psm1` file to your PowerShell modules path. 
 
 Some usages of the module:
 
@@ -64,7 +66,7 @@ idpack -u # Install utility packages
 idpack -b # Install basic packages
 ```
 
-_For a deeper comprehension, please refer to the modules documentation. I hightly recommend you to set your own package list, to personalize your post installation script._
+_For a deeper comprehension, please refer to the modules documentation. I highly recommend you to set your own package list, to personalize your post installation script._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
