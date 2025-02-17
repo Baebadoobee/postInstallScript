@@ -5,7 +5,7 @@ Import-Module "$PSScriptRoot/modules/_postInstallationPackages.psm1";
 
 # You can call the function with the following alias:
 New-Alias -Name idpack -Value Install-PIPackages -Description "Installs post installation packages" -Force;
-$env:pISHome = "$env:HOME/.pIS";
+$env:pISHome = "$($PSScriptRoot)";
 
 #-------------------------
 # Post installation script
