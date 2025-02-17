@@ -48,7 +48,23 @@ After a Arch fresh installation, run the following:
 ./launcher.sh
 ```
 
-_For a deeper comprehension, please refer to the modules documentation_
+### Some usage tips
+
+First, I want to be clear about some design choices. 
+- I decided to split the package list in five different files because some packages take longer and I found useful to split packages by groups. 
+- I also decided to use a simple TUI for the subsequent reasons: **a)** I still have some limitations when it comes to proper programming with other languages that would make the interface look better; and **b)** I wanted to make it simple to use and understand the usage.
+
+You can also add the ```_postInstallationPackage.psm1``` file to your PowerShell modules path. 
+
+Some usages of the module:
+
+```sh
+idpack -p your/defined/packlist # Installs a user-defined package list
+idpack -u # Install utility packages
+idpack -b # Install basic packages
+```
+
+_For a deeper comprehension, please refer to the modules documentation. I hightly recommend you to set your own package list, to personalize your post installation script._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

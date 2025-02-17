@@ -3,13 +3,18 @@
     Installs specific packages using the "yay" package manager on Arch Linux.
 
 .DESCRIPTION
-    The Install-Packages function allows you to install packages categorized into:
+    The Install-PIPackages function allows you to install packages categorized into:
+    - Basic
     - Utility
     - Hyprland
     - Appearance
     - Software
+    - User-defined packages
     
     The packages are read from text files located in the "packages" folder within the script directory.
+
+.PARAMETER Basic
+    Installs basic packages listed in the "_basicPacks" file.
 
 .PARAMETER Utility
     Installs utility packages listed in the "_utilityPacks" file.
@@ -23,12 +28,15 @@
 .PARAMETER Software
     Installs additional software specified in the "_softwarePacks" file.
 
+.PARAMETER Path
+    Installs user-defined packages from a custom file.
+
 .EXAMPLE
-    Install-Packages -Utility
+    Install-PIPackages -Utility
     Installs only utility packages.
 
 .EXAMPLE
-    Install-Packages -Hyprland -Appearance
+    Install-PIPackages -Hyprland -Appearance
     Installs both Hyprland-related and appearance packages.
 
 .NOTES
@@ -41,21 +49,30 @@ function Install-PIPackages {
     [CmdletBinding()]
     param (
         [Parameter(Position = 0, Mandatory = $false)]
-        [switch]$Utility,
+        [switch]$Basic,
 
         [Parameter(Position = 1, Mandatory = $false)]
-        [switch]$Hyprland,
+        [switch]$Utility,
 
         [Parameter(Position = 2, Mandatory = $false)]
-        [switch]$Appearance,
+        [switch]$Hyprland,
 
         [Parameter(Position = 3, Mandatory = $false)]
-        [switch]$Software
+        [switch]$Appearance,
+
+        [Parameter(Position = 4, Mandatory = $false)]
+        [switch]$Software,
+
+        [Parameter(Position = 5, Mandatory = $false)]
+        [string]$Path
     )
     
     begin {
         $ErrorActionPreference = "Stop";
         try {
+            # Basic
+            $basicPacks = (Get-Content "$env:pISHome/packages/_basicPacks" | Where-Object { $_ -notmatch '^#' });
+
             # Utility
             $utilityPacks = (Get-Content "$env:pISHome/packages/_utilityPacks" | Where-Object { $_ -notmatch '^#' });
 
@@ -67,6 +84,12 @@ function Install-PIPackages {
 
             # Software
             $softwarePacks = (Get-Content "$env:pISHome/packages/_softwarePacks" | Where-Object { $_ -notmatch '^#' });
+            
+
+            # User-defined packages
+            if ($Path) {
+                $userPathPacks = (Get-Content "$Path" | Where-Object { $_ -notmatch '^#' });
+            }
         }
         catch {
             Write-Output "Error reading package files: $_";
@@ -77,17 +100,23 @@ function Install-PIPackages {
     process {
         try {
             switch ($PSCmdlet.MyInvocation.BoundParameters.Keys) {
+                "Basic" {
+                    yay -S --disable-download-timeout --noconfirm --quiet $($basicPacks);
+                }
                 "Utility" {
-                       yay -S --disable-download-timeout --noconfirm --quiet $($utilityPacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet $($utilityPacks);
                 }
                 "Hyprland" {
-                        yay -S --disable-download-timeout --noconfirm --quiet $($hyprPacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet $($hyprPacks);
                 }
                 "Appearance" {
-                        yay -S --disable-download-timeout --noconfirm --quiet $($appearancePacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet $($appearancePacks);
                 }
                 "Software" {
-                        yay -S --disable-download-timeout --noconfirm --quiet $($softwarePacks);
+                    yay -S --disable-download-timeout --noconfirm --quiet $($softwarePacks);
+                }
+                "Path" {
+                    yay -S --disable-download-timeout --noconfirm --quiet $($userPathPacks);
                 }
                 default {
                     Write-Output "No packages selected";
@@ -109,10 +138,12 @@ function Install-PIPackages {
 # If you want to use a wrapper function to call the Install-DotfilesPackages function, uncomment the following code
 # function idpack {
 #     param (
+#         [switch]$Basic,
 #         [switch]$Utility,
 #         [switch]$Hyprland,
 #         [switch]$Appearance,
-#         [switch]$Software
+#         [switch]$Software,
+#         [string]$Path
 #     )
 
 #     Install-DotfilesPackages @PSBoundParameters
