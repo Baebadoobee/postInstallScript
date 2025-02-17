@@ -13,5 +13,5 @@ makepkg -siD $HOME/yay-bin
 
 # Installation script setup
 yay -S powershell-bin
-cd $HOME/.pIS/
+cd $HOME/.pIS
 pwsh --noprofile -NoLogo -NoExit -c "./installationScript.ps1"
