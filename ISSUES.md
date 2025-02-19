@@ -29,7 +29,7 @@ p#C1:hover, p#C2:hover, p#C3:hover {
 
 <p id="C3">C3. The module works fine. I found a typo in the Dotfiles_Manager's main file, but I didn't had a chance to test it again.</p>
 
-<p align="right"><a href="#" onclick="history.back()">back</a></p>
+<p align="right"><a href="#" onclick="README.md">back</a></p>
 
 ### Contributors:
 
