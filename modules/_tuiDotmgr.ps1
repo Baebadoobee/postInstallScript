@@ -1,14 +1,14 @@
 $width = [System.Console]::WindowWidth;
 $menuHeader = "-" * ($width - 2);
 $fileExt = ".ps1 ";
-$menuTitle = " Post Center ";
+$menuTitle = " Doftiles Manager ";
 $combinedLength = $fileExt.Length + $menuTitle.Length + 2;
 $widthInnerMenu = $width - 2;
 $options = @(
-    " 1. Install all packages"
-    " 2. Select package groups"
-    " 3. Open dotfile manager"
-    " 4. Quit"
+    " 1. Export dotfiles"
+    " 2. Import dotfiles"
+    " 3. Install dotfiles"
+    " 4. Back"
 )
 
 # $padding = [math]::Max(0, $width - $combinedLength);

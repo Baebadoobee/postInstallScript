@@ -3,12 +3,12 @@ downgrade
 feh
 firewalld
 imagemagick
-openrazer-daemon
-openrazer-driver-dkms
-razercfg
+# openrazer-daemon
+# openrazer-driver-dkms
+# razercfg
 razergenie
 thunar
-piper-tts-bin
+# piper-tts-bin
 tumbler
 unzip
 vlc

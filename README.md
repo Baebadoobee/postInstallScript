@@ -48,25 +48,42 @@ After a fresh Arch Linux installation, run the following:
 ./launcher.sh
 ```
 
-### Some usage tips
+The script is parted into two functionalities: A script that installs a preset list of packages and a dotfiles manager.
+
+### Preset package installation
+
+On launch, you will be greeted by a simple UI, you can select any option. If you want to remove a package from the list you can just comment it out and if you decide to add one, just append it to the bottom of the file (or uncomment it).
+
+### Dotfiles Manager
+
+You can access it either via the `installationScript.ps1` or via its own file `_dotfilesManager.ps1`, but it's preferred to be launched by the installation script because it sets up an important environment variable. 
+The Dotfiles Manager itself works as an easy import/export tool, that can also install the desired config files to your system.
+
+#### Some usage tips
 
 First, I want to be clear about some design choices. 
-- I decided to split the package list in five different files because some packages take longer and I found useful to split packages by groups. 
+- I decided to split the package list into five different files because some packages take longer and I found it useful to split packages by groups. 
 - I also decided to use a simple TUI for the subsequent reasons:
-  - a) I still have some limitations when it comes to proper programming with other languages that would make the interface look better.
-  - b) I wanted to make it simple to use and understand the usage.
+  - I still have some limitations when it comes to proper programming with other languages that would make the interface look better.
+  - I wanted to make it simple to use and understand the usage.
 
-You can also add the `_postInstallationPackage.psm1` file to your PowerShell modules path. 
+You can also add all the modules (.psm1) here to your own PowerShell modules path. 
+Again, I highly recommend you to check out the modules themselves, for customization purposes.
 
-Some usages of the module:
+Some usages of the modules:
 
-```sh
+```pwsh
+#idpack
 idpack -p your/defined/packlist # Installs a user-defined package list
 idpack -u # Install utility packages
 idpack -b # Install basic packages
+
+#slinkf
+slinkf -p origin/path -d destination/path # You don't actually have to write -p and -d, the positional parameters take care of it themselves
+slinkf "origin/path" "destination/path" -n # A NoConfirm switch exemple
 ```
 
-_For a deeper comprehension, please refer to the modules documentation. I highly recommend you to set your own package list, to personalize your post installation script._
+_For a deeper comprehension, please refer to the modules documentation. I highly recommend you to set your own package list, to personalize your post-installation script._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -75,3 +92,4 @@ _For a deeper comprehension, please refer to the modules documentation. I highly
 <a href="https://github.com/Baebadoobee/postInstallScript/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Baebadoobee/postInstallScript" alt="contrib.rocks image" />
 </a>
+
