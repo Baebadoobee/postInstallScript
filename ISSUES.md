@@ -1,8 +1,8 @@
-<style type="text/css">
+<!-- <style type="text/css">
 p#C1:hover, p#C2:hover, p#C3:hover {
   color: #f1f1f1;
 }
-</style>
+</style> -->
 
 
 ## Issue list
