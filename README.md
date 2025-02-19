@@ -1,19 +1,5 @@
 <a id="readme-top"></a>
 
-<style type="text/css">
-p#warning {
-  max-width: 60%; 
-  font-size: 18px; 
-  text-align: left; 
-  font-weight: bold; 
-  position: relative; 
-  margin: 0;
-}
-p#warning:hover {
-  color: #f1f1f1;
-}
-</style>
-
 <!--
 <br />
 <div align="center">
@@ -97,6 +83,20 @@ slinkf -p origin/path -d destination/path # You don't actually have to write -p 
 slinkf "origin/path" "destination/path" -n # A NoConfirm switch exemple
 ```
 </br></br>
+
+<style type="text/css">
+  p#warning {
+    max-width: 60%; 
+    font-size: 18px; 
+    text-align: left; 
+    font-weight: bold; 
+    position: relative; 
+    margin: 0;
+  }
+  p#warning:hover {
+    color: #f1f1f1;
+  }
+</style>
 
 <p id="warning">I am currently working in some problems on the code, errors are likely to occour!</p>
 <p align="left">Please check out the <a href="ISSUES.md">issues</a> page</p>
