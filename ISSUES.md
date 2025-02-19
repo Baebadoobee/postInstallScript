@@ -21,10 +21,18 @@ p#C1:hover, p#C2:hover, p#C3:hover {
 - I have to change the Post Installation function to be more generic, therefore, esier to catch any error that might occour.
 </br>
 
-### Expanded comments on problems.
+## Expanded comments on problems.
 
 <p id="C1">C1. To be honest, I tried to address this issue assigning an environment variable'$env:pISHome = "$env:HOME/.pIS".' If you run with some path problems, check this.</p>
 
-<p id="C2">C2. Solved by parsing the files with '(Get-Content "$env:pISHome/packages/_appearancePacks" | Where-Object { $_ -notmatch '^#' })'. The use of $($var) was optional.</p>
+<p id="C2">C2. Solved by parsing the files with `(Get-Content "$env:pISHome/packages/_appearancePacks" | Where-Object { $_ -notmatch '^#' })`. The use of $($var) was optional.</p>
 
 <p id="C3">C3. The module works fine. I found a typo in the Dotfiles_Manager's main file, but I didn't had a chance to test it again.</p>
+
+<p align="right"><a href="#" onclick="history.back()">back</a></p>
+
+### Contributors:
+
+<a href="https://github.com/Baebadoobee/postInstallScript/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Baebadoobee/postInstallScript" alt="contrib.rocks image" />
+</a>
