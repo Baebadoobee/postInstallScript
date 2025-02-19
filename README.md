@@ -1,5 +1,19 @@
 <a id="readme-top"></a>
 
+<style type="text/css">
+p#warning {
+  max-width: 60%; 
+  font-size: 18px; 
+  text-align: left; 
+  font-weight: bold; 
+  position: relative; 
+  margin: 0;
+}
+p#warning:hover {
+  color: #f1f1f1;
+}
+</style>
+
 <!--
 <br />
 <div align="center">
@@ -82,10 +96,16 @@ idpack -b # Install basic packages
 slinkf -p origin/path -d destination/path # You don't actually have to write -p and -d, the positional parameters take care of it themselves
 slinkf "origin/path" "destination/path" -n # A NoConfirm switch exemple
 ```
+</br></br>
 
+<p id="warning">I am currently working in some problems on the code, errors are likely to occour!</p>
+<p align="left">Please check out the <a href="ISSUES.md">issues</a> page</p>
+
+
+##
 _For a deeper comprehension, please refer to the modules documentation. I highly recommend you to set your own package list, to personalize your post-installation script._
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">back to top</a></p>
 
 ### Contributors:
 
