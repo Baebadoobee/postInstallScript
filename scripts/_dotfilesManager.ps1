@@ -1,15 +1,8 @@
 #!/usr/bin/pwsh
 # remember to: git remote set-url origin https://<Token>@github.com/<Username>/<Repo>
-# Install-Module -Name GitAutomation;
 
 Import-Module "$env:pISHome/modules/newSymlink/newSymlink.psm1";
-# Import-Module GitAutomation;
-
-function Import-Repository ([string]$Path, [string]$Destination) {
-    git clone $Path $Destination;
-}
-
-New-Alias -Name irepo -Value Import-Repository -Description "Imports a repository from an upstream link." -Force;
+Import-Module "$env:pISHome/modules/extras.psm1"
 
 $dotfilesLocation = "$HOME/.dotfiles";
 $date = Get-Date;
