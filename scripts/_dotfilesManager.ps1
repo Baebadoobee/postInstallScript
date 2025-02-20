@@ -77,7 +77,7 @@ switch ($actionTui) {
         #* Installation
         try {
             # Config folder
-            slinkf -Path "$dotfilesLocation/hyprland/config" -Destination"$HOME/.config";
+            slinkf -Path "$dotfilesLocation/hyprland/config" -Destination "$HOME/.config";
 
             # Neofetch
             sudo mv -f neofetch /bin;

@@ -79,6 +79,7 @@ function New-Symlink {
                 catch {
                     Write-Output "Symlink creation failed for $folderName";
                     $_;
+                    Pause;
                 }
             }
         }

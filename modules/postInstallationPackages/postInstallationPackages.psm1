@@ -27,13 +27,24 @@ function Install-PIPackages {
     [CmdletBinding()]
     param (
         [Parameter(Position = 0, Mandatory = $true)]
-        [string]$Path
+        [string]$Path,
+        [Parameter(Position = 1, Mandatory = $true)]
+        [string]$All
     )
     
     begin {
         $ErrorActionPreference = "Stop";
         try {
-            $packageList = (Get-Content "$Path" | Where-Object { $_ -notmatch '^#' });            
+            if ($All) {
+                $packageList = (Get-Content "$Path" | Where-Object { 
+                    ($_ -notmatch '^#') 
+                }); 
+            }   
+            else {
+                $packageList = (Get-Content "$Path" | Where-Object { 
+                    ($_ -notmatch '^#') -and ($_ -notmatch 'debug') 
+                }); 
+            }       
         }
         catch {
             Write-Output "Error reading package file: $_";
@@ -43,8 +54,10 @@ function Install-PIPackages {
     
     process {
         try {
-            if ($Path) {
-                yay -S --disable-download-timeout --noconfirm --needed $($packageList);
+            if ($Path) { #Foreach
+                foreach ($package in $packageList) { # This way, progress lost is prevented
+                    yay -S --disable-download-timeout --noconfirm --needed $($package);
+                }
             }
             else {
                 Write-Output "No packages selected";
