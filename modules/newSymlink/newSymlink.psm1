@@ -21,7 +21,7 @@ New-Symlink -Path "$HOME/folder1" -Destination "$HOME/folder2"
 Creates symbolic links for all files in "$HOME/folder1" and places them in "$HOME/folder2".
 
 .EXAMPLE
-New-Symlink -Path "C:\Configs" -Destination "D:\Symlinks" -NoConfirm
+New-Symlink -Path "$HOME/folder1" -Destination "$HOME/folder2" -NoConfirm
 
 Creates symbolic links without asking for confirmation.
 
@@ -89,13 +89,15 @@ function New-Symlink {
    }
 }
 
-# If you want to use a wrapper function to call the New-Symlink function, uncomment the following code
-# function slinkf {
-#     param (
-#         [string]$Path,
-#         [string]$Destination,
-#         [switch]$NoConfirm
-#     )
-#
-#     New-Symlink @PSBoundParameters
-# }
+# Wrapper function
+function slinkf {
+    param (
+        [string]$Path,
+        [string]$Destination,
+        [switch]$NoConfirm
+    )
+    New-Symlink @PSBoundParameters
+}
+
+Export-ModuleMember -Function New-Symlink;
+Export-ModuleMember -Function slinkf;

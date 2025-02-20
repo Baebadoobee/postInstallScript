@@ -98,7 +98,7 @@ slinkf "origin/path" "destination/path" -n # A NoConfirm switch exemple
   }
 </style> -->
 
-<p align="right">I am currently working in some problems on the code, errors are likely to occour!</br>Please check out the <a href="ISSUES.md">issues</a> page</p>
+<p align="right">I am currently working in some problems on the code, errors are likely to occour!</br>Please check out the <a href="doc/ISSUES.md">issues</a> page</p>
 
 
 ##

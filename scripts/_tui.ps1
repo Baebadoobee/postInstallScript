@@ -1,16 +1,8 @@
 $width = [System.Console]::WindowWidth;
 $menuHeader = "-" * ($width - 2);
 $fileExt = ".ps1 ";
-$menuTitle = " Doftiles Manager ";
 $combinedLength = $fileExt.Length + $menuTitle.Length + 2;
 $widthInnerMenu = $width - 2;
-$options = @(
-    " 1. Export dotfiles"
-    " 2. Import dotfiles"
-    " 3. Install dotfiles"
-    " 4. Back"
-)
-
 # $padding = [math]::Max(0, $width - $combinedLength);
 
 #-------------------------

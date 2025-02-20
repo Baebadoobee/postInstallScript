@@ -1,18 +1,27 @@
 #!/usr/bin/pwsh
 # All the modules are free to use and modify as you see fit.
 #-------------------------
-Import-Module "$PSScriptRoot/modules/_postInstallationPackages.psm1";
+Import-Module "$PSScriptRoot/modules/postInstallationPackages/postInstallationPackages.psm1";
 
-# You can call the function with the following alias:
-New-Alias -Name idpack -Value Install-PIPackages -Description "Installs post installation packages" -Force;
 $env:pISHome = "$($PSScriptRoot)";
+$scriptPath = "$env:pISHome/scripts"
+$packagesPath = "$env:pISHome/packages";
+$packageList = "$packagesPath/_packlist"; #* Default package list
 
 #-------------------------
 # Post installation script
 #-------------------------
 $ErrorActionPreference = "Stop";
 do { Clear-Host; #* Starts the TUI loop
-& $PSScriptRoot/modules/_tui.ps1;
+
+$menuTitle = " Post-installation Manager ";
+$options = @(
+    " 1. Install package list"
+    " 2. Select separated package lists"
+    " 3. Open dotfile manager"
+    " 4. Quit"
+)
+& "$scriptPath/_tui.ps1";
 
 # Read entry
 $actionTui = (([System.Console]::ReadKey($true)) | Select-Object KeyChar).KeyChar;
@@ -24,7 +33,7 @@ switch ($actionTui) {
             Write-Output "WARNING: This might take a while, do you still want to continue? (y/n)";
             $continue = (([System.Console]::ReadKey($true)) | Select-Object KeyChar).KeyChar;
             if ($continue -eq "y") {
-                idpack -Utility -Hyprland -Appearance -Software;
+                pipack $packageList;
             }
             else {
                 Write-Output "Installation aborted";
@@ -35,37 +44,22 @@ switch ($actionTui) {
         catch {
             Write-Output "An error occurred while installing all packages";
             $_;
+            Pause;
             Continue;
         }  
     }
 
     2 { #* Select package groups
-        $packageGroups = Read-Host "Enter package groups to install (Utility, Appearance, Hyprland and Software)"
+        $packageGroups = Read-Host "Enter package group names to install (default path: $packagesPath)";
 
         foreach ($packageGroup in $packageGroups.Split(" ")) {
             try {
-                switch ($packageGroup) {
-                    "utility" {  
-                        idpack -Utility;
-                    }
-                    "appearance" {
-                        idpack -Appearance;
-                    }
-                    "hyprland" { 
-                        idpack -Hyprland;
-                    }
-                    "software" { 
-                        idpack -Software;
-                    }
-                    Default { 
-                        Write-Output "Invalid package group: $packageGroup";
-                        exit;
-                    }
-                } 
+                pipack -Path "$packagesPath/_$packageGroup"; # List by file
             }
             catch {
                 Write-Output "Error installing package group: $packageGroup";
                 $_.Exception.Message;
+                Pause;
                 Continue;
             }
         }
@@ -73,11 +67,12 @@ switch ($actionTui) {
 
     3 { # Open the dotfile manager
         try {
-            & $PSScriptRoot/modules/_dotfilesManager.ps1;
+            & "$scriptPath/_dotfilesManager.ps1";
         }
         catch {
             Write-Output "An error occurred while opening the dotfile manager";
             $_;
+            Pause;
             Continue;
         }
     }
