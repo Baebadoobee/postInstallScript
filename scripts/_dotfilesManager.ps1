@@ -17,6 +17,7 @@ $options = @(
     " 2. Import dotfiles"
     " 3. Install dotfiles"
     " 4. Back"
+    ""
 )
 & "$scriptPath/_tui.ps1";
 

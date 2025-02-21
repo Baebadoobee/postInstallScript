@@ -58,9 +58,16 @@ function Install-PIPackages {
     
     process {
         try {
+            # This one is the fastest way, uncomment if you find it better.
+            #* Attention, if something go wrong, all your progress will be lost
+
+            # if ($Path) {
+            #     yay -S --disable-download-timeout --noconfirm --needed --quiet $($packageList);
+            # }
+
             if ($Path) { #Foreach
                 foreach ($package in $packageList) { # This way, progress lost is prevented
-                    yay -S --disable-download-timeout --noconfirm --needed $($package);
+                    yay -S --disable-download-timeout --noconfirm --needed --quiet $($package);
                 }
             }
             else {

@@ -9,7 +9,7 @@
 </div>
  -->
  
-<h3 align="center">Post-Installation Script (idpack)</h3>
+<h3 align="center">Post-Installation Script (pipack)</h3>
   <p align="center">Written in PowerShell.</p>
 <br />
 
@@ -24,14 +24,14 @@
 -->
 
 <!-- ABOUT THE PROJECT -->
-## Installation
+# Installation
 
-1. Clone the repo into your home folder:
+Clone the repo into your home folder:
 
    ```sh
    git clone https://github.com/Baebadoobee/postInstallScript.git .pIS
    ```
-2. Make `launcher.sh` and `installationScript.ps1` files executable to ensure they can be run as scripts:
+Make `launcher.sh` and `installationScript.ps1` files executable to ensure they can be run as scripts:
    
    ```sh
    cd .pIS
@@ -40,7 +40,7 @@
    ```
 
 <!-- USAGE EXAMPLES -->
-## Usage
+# Usage
 
 After a fresh Arch Linux installation, run the following:
 
@@ -50,38 +50,66 @@ After a fresh Arch Linux installation, run the following:
 
 The script is parted into two functionalities: A script that installs a preset list of packages and a dotfiles manager.
 
-### Preset package installation
+## Preset package installation
 
-On launch, you will be greeted by a simple UI, you can select any option. If you want to remove a package from the list you can just comment it out and if you decide to add one, just append it to the bottom of the file (or uncomment it).
+On launch, you will be greeted by a simple TUI.
 
-### Dotfiles Manager
+<img src="preview/pIS.png"></img>
+
+### Setting a package list
+
+The used module <a href="modules/postInstallationPackages/postInstallationPackages.psm1">postInstallationPackages.psm1</a> by default searchs for a file called `_packlist` in the packages directory. In this file you can list packages by name. Any commented out line is ignored, as so as any line with `debug` in it.
+
+You can also have multiple package lists in the directory, but you gotta use the "Select separated package lists" option. The correct way to save those lists is in `_yourlistname`, **don't forget the underscore.**
+
+The "Export package list" option gets all the packages you have installed on your system and overwrites the current `_packlist` file.
+
+## Dotfiles Manager
 
 You can access it either via the `installationScript.ps1` or via its own file `_dotfilesManager.ps1`, but it's preferred to be launched by the installation script because it sets up an important environment variable. 
-The Dotfiles Manager itself works as an easy import/export tool, that can also install the desired config files to your system.
 
-#### Some usage tips
+<img src="preview/dotmgr.png"></img>
 
-First, I want to be clear about some design choices. 
-- I decided to split the package list into five different files because some packages take longer and I found it useful to split packages by groups. 
-- I also decided to use a simple TUI for the subsequent reasons:
-  - I still have some limitations when it comes to proper programming with other languages that would make the interface look better.
-  - I wanted to make it simple to use and understand the usage.
+The Dotfiles Manager itself works as an easy import/export tool, that can also install the desired config files to your system. 
 
-You can also add all the modules (.psm1) here to your own PowerShell modules path. 
-Again, I highly recommend you to check out the modules themselves, for customization purposes.
+It is preferable that you setup git on your dotfiles folder before trying to export. I also recommend you to check the <a href="scripts/_dotfilesManager.ps1">_dotfilesManager.ps1</a> script and configure the git commands.
+
+The second option uses a simple function, that asks you the link to a repo and clones it.
+
+Last but not least, the "Install dotfiles" option uses the module <a href="modules/newSymlink/newSymlink.psm1">newSymlink.psm1</a>. It simulates a wildcard operation with symlinks, similar to `cp directory/*`.
+
+## Modules 
+
+As you already know, the script uses two modules each can be added to your PowerShell local folder and be used as a command.
+
+To do this run the following:
+
+```sh
+cp -rf $HOME/.pIS/modules/* .local/powershell/modules/
+```
+
+The module documentation always comes on top of any module file, check that out. I highly recommend you to do this, for customization purposes.
 
 Some usages of the modules:
 
 ```pwsh
+import-module postInstallationPackage
+import-module newSymlink
+
 #idpack
-idpack -p your/defined/packlist # Installs a user-defined package list
-idpack -u # Install utility packages
-idpack -b # Install basic packages
+pipack -p your/defined/packlist # Installs a user-defined package list
 
 #slinkf
 slinkf -p origin/path -d destination/path # You don't actually have to write -p and -d, the positional parameters take care of it themselves
-slinkf "origin/path" "destination/path" -n # A NoConfirm switch exemple
 ```
+
+To make the modules persistent you can append that top 3 lines to your powershell profile. If you want to use it directly from your shell, create aliases for each of this commands. Like this:
+
+```sh
+alias pipack='pwsh --no-logo -c pipack'
+alias slinkf='pwsh --no-logo -c slinkf'
+```
+
 </br>
 
 <!-- <style type="text/css">

@@ -72,7 +72,16 @@ switch ($actionTui) {
 
     3 { # Export package list
         try {
-            expack -Path "$packageList";
+            Write-Output "Do you want to export a new packlist? (y/n)";
+            $continue = (([System.Console]::ReadKey($true)) | Select-Object KeyChar).KeyChar;
+            if ($continue -eq "y") {
+                expack -Path "$packageList";
+            }
+            else {
+                Write-Output "Exportation aborted";
+                Start-Sleep -Seconds 2;
+                Continue;
+            }
         }
         catch {
             Write-Output "Export failed"
