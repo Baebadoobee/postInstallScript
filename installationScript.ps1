@@ -1,10 +1,11 @@
 #!/usr/bin/pwsh
 # All the modules are free to use and modify as you see fit.
 #-------------------------
-Import-Module "$PSScriptRoot/modules/postInstallationPackages/postInstallationPackages.psm1";
+$env:pISHome = "$($PSScriptRoot)";
+
+Import-Module "$env:pISHome/modules/postInstallationPackages/postInstallationPackages.psm1";
 Import-Module "$env:pISHome/modules/extras.psm1"
 
-$env:pISHome = "$($PSScriptRoot)";
 $scriptPath = "$env:pISHome/scripts"
 $packagesPath = "$env:pISHome/packages";
 $packageList = "$packagesPath/_packlist"; #* Default package list

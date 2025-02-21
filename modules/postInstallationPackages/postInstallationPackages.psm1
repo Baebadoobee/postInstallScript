@@ -58,19 +58,21 @@ function Install-PIPackages {
     
     process {
         try {
-            # This one is the fastest way, uncomment if you find it better.
+            
+
+	    # This way, progress loss is prevented, uncomment if you find it better. 
+	    #if ($Path) { #Foreach
+            #    foreach ($package in $packageList) { 
+            #        yay -S --disable-download-timeout --noconfirm --needed --quiet $($package);
+            #    }
+            #}
+
+	    # This one is the fastest way
             #* Attention, if something go wrong, all your progress will be lost
-
-            # if ($Path) {
-            #     yay -S --disable-download-timeout --noconfirm --needed --quiet $($packageList);
-            # }
-
-            if ($Path) { #Foreach
-                foreach ($package in $packageList) { # This way, progress lost is prevented
-                    yay -S --disable-download-timeout --noconfirm --needed --quiet $($package);
-                }
+            if ($Path) {
+                yay -S --disable-download-timeout --noconfirm --needed --quiet $($packageList);
             }
-            else {
+	    else {
                 Write-Output "No packages selected";
             }
         }
