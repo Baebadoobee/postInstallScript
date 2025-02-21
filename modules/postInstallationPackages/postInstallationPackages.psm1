@@ -28,8 +28,8 @@ function Install-PIPackages {
     param (
         [Parameter(Position = 0, Mandatory = $true)]
         [string]$Path,
-        [Parameter(Position = 1, Mandatory = $true)]
-        [string]$All
+        [Parameter(Position = 1, Mandatory = $false)]
+        [switch]$All
     )
     
     begin {
