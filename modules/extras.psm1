@@ -4,8 +4,7 @@ function Export-Packlist ([string]$Path) {
     $index = 0;
     @(Get-Content $Path).Split(" ") | Where-Object {
         ((++$index % 2) -ne 0)
-    } | 
-    Out-File -Path $Path;
+    } | Out-File -Path $Path;
 }
 
 function Import-Repository ([string]$Path, [string]$Destination) {
@@ -50,16 +49,14 @@ function Get-PackTree {
 
     begin {
         $ErrorActionPreference = 'Stop';
-
         $index = 0;
-
+        
         if (-not ($Path)) {
             $Path = "$HOME/pactree";
         }
         elseif (-not ($Depth)) {
             $Depth = 0;
         }
-            
     }
 
     process {
@@ -67,8 +64,7 @@ function Get-PackTree {
             pacman -Q > $Path;
             @(Get-Content $Path).Split(" ") | Where-Object {
                 ((++$index % 2) -ne 0)
-            }| 
-            ForEach-Object {
+            } | ForEach-Object {
                 (pactree --depth $Depth $_)
             };
         }

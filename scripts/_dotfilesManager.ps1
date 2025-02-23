@@ -1,31 +1,28 @@
 #!/usr/bin/pwsh
-# remember to: git remote set-url origin https://<Token>@github.com/<Username>/<Repo>
-
+#-------------------------
 Import-Module "$env:pISHome/modules/newSymlink/newSymlink.psm1";
 Import-Module "$env:pISHome/modules/extras.psm1"
-
 $dotfilesLocation = "$HOME/.dotfiles";
 $date = Get-Date;
 
-#-------------------------
 $ErrorActionPreference = "Stop";
 do { Clear-Host; #* Starts the TUI loop
-
+#-------------------------
 $menuTitle = " Dotfile Manager ";
 $options = @(
-    " 1. Export dotfiles"
-    " 2. Import dotfiles"
-    " 3. Install dotfiles"
-    " 4. Back"
+    " 1. Export dotfiles",
+    " 2. Import dotfiles",
+    " 3. Install dotfiles",
+    " 4. Back",
     ""
-)
+);
 & "$scriptPath/_tui.ps1";
 
-# Read entry
-$actionTui = (([System.Console]::ReadKey($true)) | Select-Object KeyChar).KeyChar;
-#-------------------------
+$actionTui = ([System.Console]::ReadKey($true)).KeyChar; # Read entry
+
 switch ($actionTui) {
     1 { 
+        # Remember to: git remote set-url origin https://<Token>@github.com/<Username>/<Repo>
         #* Exporting dotfiles
         try {
             Push-Location;
@@ -74,7 +71,7 @@ switch ($actionTui) {
             slinkf -Path "$dotfilesLocation/hyprland/config" -Destination "$HOME/.config";
 
             # Neofetch
-            sudo mv -f neofetch /bin;
+            sudo mv -f neofetch /bin/neofetch;
         }
         catch {
             Write-Output "An error occurred while installing dotfiles";
@@ -88,6 +85,6 @@ switch ($actionTui) {
         exit;
     }
 }
-}
-while ($true)
-
+#-------------------------
+} while ($true)
+#-------------------------

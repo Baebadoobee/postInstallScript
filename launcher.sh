@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
 # Connecting to the internet
-# Unccoment the following line if you are using wifi
-# nmcli device wifi '<ID>' password '<PASSWORD>'
+# Unccoment the following line if you are using a wireless network
+#nmcli device wifi '<ID>' password '<PASSWORD>'
 
 # Needed packages
 sudo pacman -S --disable-download-timeout --noconfirm --quiet --needed base linux linux-firmware base-devel sudo git

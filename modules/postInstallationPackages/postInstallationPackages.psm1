@@ -5,6 +5,7 @@
 .DESCRIPTION
     The Install-PIPackages function reads a list of packages from a specified file and installs them using Yay.
     Lines starting with '#' are ignored as comments.
+    Lines with 'debug' are ignored as debug packages.
 
 .PARAMETER Path
     Specifies the path to the file containing the package list.
@@ -22,7 +23,6 @@
     - Any errors encountered while reading the file or installing packages will be displayed.
     - If the installation is successful, a confirmation message is shown.
 #>
-
 function Install-PIPackages {
     [CmdletBinding()]
     param (
@@ -58,22 +58,20 @@ function Install-PIPackages {
     
     process {
         try {
-            
-
-	    # This way, progress loss is prevented, uncomment if you find it better. 
-	    #if ($Path) { #Foreach
+            # This way, progress loss is prevented, uncomment if you find it better. 
+            #if ($Path) { #Foreach
             #    foreach ($package in $packageList) { 
             #        yay -S --disable-download-timeout --noconfirm --needed --quiet $($package);
             #    }
             #}
 
-	    # This one is the fastest way
+            # This way is the fastest way
             #* Attention, if something go wrong, all your progress will be lost
             if ($Path) {
                 yay -S --disable-download-timeout --noconfirm --needed --quiet $($packageList);
             }
-	    else {
-                Write-Output "No packages selected";
+            else {
+                    Write-Output "No packages selected";
             }
         }
         catch {
