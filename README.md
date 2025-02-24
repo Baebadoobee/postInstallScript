@@ -72,7 +72,7 @@ You can access it either via the `installationScript.ps1` or via its own file `_
 
 The Dotfiles Manager itself works as an easy import/export tool, that can also install the desired config files to your system. 
 
-It is preferable that you setup git on your dotfiles folder before trying to export. I also recommend you to check the <a href="scripts/_dotfilesManager.ps1">_dotfilesManager.ps1</a> script and configure the git commands.
+It is preferable that you setup git on your dotfiles folder before trying to export. I also recommend you to check the <a href="scripts/_dotfilesManager.ps1">_dotfilesManager.ps1</a> script to configure git commands and configure the `$dofilesLocation` variable. Also check out <a href="scripts/_dotExportList.ps1">_dotExportList.ps1</a>.
 
 The second option uses a simple function, that asks you the link to a repo and clones it.
 

@@ -38,16 +38,16 @@ if (-not (Test-Path "$dotfilesLocation")) {
 }
 
 $dotConfig | ForEach-Object {
-    Copy-Item -Path "$configPath/$_" -Destination "$dotfilesLocation/hyprland/config" -Recurse -Force
+    Copy-Item -Path "$configPath/$_" -Destination "$dotfilesLocation/config" -Recurse -Force
 };
 
 $dotLocal | ForEach-Object {
-    Copy-Item -Path "$localPath/$_" -Destination "$dotfilesLocation/hyprland/local" -Recurse -Force
+    Copy-Item -Path "$localPath/$_" -Destination "$dotfilesLocation/local" -Recurse -Force
 };
 
 $dotHome | ForEach-Object { 
-    Copy-Item -Path "$HOME/$_" -Destination "$dotfilesLocation/hyprland/" -Force
+    Copy-Item -Path "$HOME/$_" -Destination "$dotfilesLocation" -Force
 };
 
-Copy-Item -Path "$appIcons" -Destination "$dotfilesLocation/hyprland/nativefierApps/appIcons" -Recurse -Force;
+Copy-Item -Path "$appIcons" -Destination "$dotfilesLocation/nativefierApps/appIcons" -Recurse -Force;
 

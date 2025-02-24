@@ -2,7 +2,7 @@
 #-------------------------
 Import-Module "$env:pISHome/modules/newSymlink/newSymlink.psm1";
 Import-Module "$env:pISHome/modules/extras.psm1";
-$dotfilesLocation = "$HOME/.dotfiles";
+$dotfilesLocation = "$HOME/.dotfiles/hyprland"; # Change here!
 $configPath = "$HOME/.config";
 $localPath = "$HOME/.local/share";
 $appIcons = "$HOME/app-icons";
@@ -73,7 +73,7 @@ switch ($actionTui) {
         #* Installation
         try {
             # Config folder
-            slinkf -Path "$dotfilesLocation/hyprland/config" -Destination "$HOME/.config";
+            slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config";
 
             # Neofetch
             sudo mv -f neofetch /bin/neofetch;
