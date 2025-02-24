@@ -38,14 +38,14 @@ function Install-PIPackages {
         try {
             if ($All) {
                 $packageList = (Get-Content "$Path" | Where-Object { 
-                    ($_ match '^#') 
+                    ($_ -notmatch '^#') 
                 }); 
                 $packCount = $packageList.Count;
                 Write-Output "Installing $packCount packages";
             }   
             else {
                 $packageList = (Get-Content "$Path" | Where-Object { 
-                    ($_ match '^#') -and ($_ -notmatch 'debug') 
+                    ($_ -notmatch '^#') -and ($_ -notmatch 'debug') 
                 }); 
                 $packCount = $packageList.Count;
                 Write-Output "Installing $packCount packages";
