@@ -1,8 +1,11 @@
 #!/usr/bin/pwsh
 #-------------------------
 Import-Module "$env:pISHome/modules/newSymlink/newSymlink.psm1";
-Import-Module "$env:pISHome/modules/extras.psm1"
+Import-Module "$env:pISHome/modules/extras.psm1";
 $dotfilesLocation = "$HOME/.dotfiles";
+$configPath = "$HOME/.config";
+$localPath = "$HOME/.local/share";
+$appIcons = "$HOME/app-icons";
 $date = Get-Date;
 
 $ErrorActionPreference = "Stop";
@@ -24,6 +27,8 @@ switch ($actionTui) {
     1 { 
         # Remember to: git remote set-url origin https://<Token>@github.com/<Username>/<Repo>
         #* Exporting dotfiles
+
+        & "$scriptPath/_dotExportList.ps1"
         try {
             Push-Location;
             cd $dotfilesLocation;
