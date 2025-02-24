@@ -1,8 +1,6 @@
-#!/usr/bin/pwsh
-#-------------------------
 # Dotfile list
-#-------------------------
 # If you, just like me, want to add something more, feel free
+
 $dotConfig = @( 
     "alacritty",
     "BetterDiscord",
@@ -32,8 +30,10 @@ $dotHome = @(
     ".vimrc",
     ".bashrc"
 );
+
 #-------------------------
-if (-not (Test-Path "$dotfilesLocation")) {
+
+if (!(Test-Path "$dotfilesLocation")) {
     New-Item -Path "$HOME" -Name ".dotfiles" -ItemType Directory
 }
 

@@ -51,10 +51,10 @@ function Get-PackTree {
         $ErrorActionPreference = 'Stop';
         $index = 0;
         
-        if (-not ($Path)) {
+        if (!($Path)) {
             $Path = "$HOME/pactree";
         }
-        elseif (-not ($Depth)) {
+        elseif (!($Depth)) {
             $Depth = 0;
         }
     }

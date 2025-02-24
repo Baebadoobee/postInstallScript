@@ -33,6 +33,7 @@ Creates symbolic links without asking for confirmation.
 #>
 
 function New-Symlink {
+    [Alias("slinkf")]
     [CmdletBinding()]
     param (
         [Parameter(Position = 0, Mandatory = $true)]
@@ -48,7 +49,7 @@ function New-Symlink {
     begin {
         $ErrorActionPreference = "Stop";
 
-        if (-not (Test-Path $Path)){
+        if (!(Test-Path $Path)){
             Write-Output "The path $Path does not exist";
             break;
         }
@@ -59,12 +60,12 @@ function New-Symlink {
         $linkConfirm = "y";
 
         #.config folder files
-        if (-not ($NoConfirm)) {
+        if (!($NoConfirm)) {
             $linkConfirm = Read-Host "Link files $($Path) to $($Destination)? (y/n)";
         }
 
         if ($linkConfirm -eq "y") {
-            if (-not (Test-Path $Destination)) {
+            if (!(Test-Path $Destination)) {
                 Write-Output "Creating $Destination";
                 New-Item -ItemType Directory -Path $Destination;
             }
@@ -91,14 +92,14 @@ function New-Symlink {
 }
 
 # Wrapper function
-function slinkf {
-    param (
-        [string]$Path,
-        [string]$Destination,
-        [switch]$NoConfirm
-    )
-    New-Symlink @PSBoundParameters
-}
+# function slinkf {
+#     param (
+#         [string]$Path,
+#         [string]$Destination,
+#         [switch]$NoConfirm
+#     )
+#     New-Symlink @PSBoundParameters
+# }
 
 Export-ModuleMember -Function New-Symlink;
-Export-ModuleMember -Function slinkf;
+Export-ModuleMember -Alias slinkf;

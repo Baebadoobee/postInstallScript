@@ -54,7 +54,7 @@ switch ($actionTui) {
         if ($importLocation -eq "") {
             $importLocation = $dotfilesLocation;
         }
-        elseif (-not (Test-Path $importLocation)) {
+        elseif (!(Test-Path $importLocation)) {
             New-Item -ItemType Directory -Path $importLocation;
         }
         

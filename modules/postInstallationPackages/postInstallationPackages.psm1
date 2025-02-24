@@ -24,6 +24,7 @@
     - If the installation is successful, a confirmation message is shown.
 #>
 function Install-PIPackages {
+    [Alias("pipack")]
     [CmdletBinding()]
     param (
         [Parameter(Position = 0, Mandatory = $true)]
@@ -37,14 +38,14 @@ function Install-PIPackages {
         try {
             if ($All) {
                 $packageList = (Get-Content "$Path" | Where-Object { 
-                    ($_ -notmatch '^#') 
+                    ($_ match '^#') 
                 }); 
                 $packCount = $packageList.Count;
                 Write-Output "Installing $packCount packages";
             }   
             else {
                 $packageList = (Get-Content "$Path" | Where-Object { 
-                    ($_ -notmatch '^#') -and ($_ -notmatch 'debug') 
+                    ($_ match '^#') -and ($_ -notmatch 'debug') 
                 }); 
                 $packCount = $packageList.Count;
                 Write-Output "Installing $packCount packages";
@@ -88,10 +89,10 @@ function Install-PIPackages {
 }
 
 # Wrapper function
-function pipack {
-    param ([string]$Path)
-    Install-PIPackages @PSBoundParameters;
-}
+# function pipack {
+#     param ([string]$Path)
+#     Install-PIPackages @PSBoundParameters;
+# }
 
 Export-ModuleMember -Function Install-PIPackages;
-Export-ModuleMember -Function pipack;
+Export-ModuleMember -Alias pipack;
