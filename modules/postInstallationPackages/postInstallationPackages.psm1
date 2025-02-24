@@ -24,7 +24,7 @@
     - If the installation is successful, a confirmation message is shown.
 #>
 function Install-PIPackages {
-    #[Alias("pipack")]
+    [Alias("pipack")]
     [CmdletBinding()]
     param (
         [Parameter(Position = 0, Mandatory = $true)]
@@ -89,10 +89,10 @@ function Install-PIPackages {
 }
 
 # Wrapper function
-function pipack {
-    param ([string]$Path)
-    Install-PIPackages @PSBoundParameters;
-}
+#function pipack {
+#    param ([string]$Path)
+#    Install-PIPackages @PSBoundParameters;
+#}
 
 Export-ModuleMember -Function Install-PIPackages;
-Export-ModuleMember -Function pipack;
+Export-ModuleMember -Alias pipack;
