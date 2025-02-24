@@ -33,7 +33,7 @@ Creates symbolic links without asking for confirmation.
 #>
 
 function New-Symlink {
-    [Alias("slinkf")]
+#    [Alias("slinkf")]
     [CmdletBinding()]
     param (
         [Parameter(Position = 0, Mandatory = $true)]
@@ -92,14 +92,14 @@ function New-Symlink {
 }
 
 # Wrapper function
-# function slinkf {
-#     param (
-#         [string]$Path,
-#         [string]$Destination,
-#         [switch]$NoConfirm
-#     )
-#     New-Symlink @PSBoundParameters
-# }
+function slinkf {
+    param (
+        [string]$Path,
+        [string]$Destination,
+        [switch]$NoConfirm
+    )
+    New-Symlink @PSBoundParameters
+}
 
 Export-ModuleMember -Function New-Symlink;
-Export-ModuleMember -Alias slinkf;
+Export-ModuleMember -Function slinkf;
