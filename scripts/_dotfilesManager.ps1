@@ -94,10 +94,10 @@ switch ($actionTui) {
             if ($continue -eq "y") {
                 slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config" -NoConfirm;
                 $dotHome | ForEach-Object {
-                    (Copy-Item -Path "$dotfilesLocation/$_" -Destination "$HOME/$_" -Force -ErrorAction SilentlyContinue)
+                    (Copy-Item -Path "$dotfilesLocation/$_" -Destination "$HOME" -Force -ErrorAction SilentlyContinue)
                 };
                 $dotLocal | ForEach-Object {
-                    (Copy-Item -Path "$dotfilesLocation/local/share/$_" -Destination "$localPath/$_" -Force -ErrorAction SilentlyContinue)
+                    (Copy-Item -Path "$dotfilesLocation/local/share/$_" -Destination "$localPath" -Force -ErrorAction SilentlyContinue)
                 };
             } 
         }
