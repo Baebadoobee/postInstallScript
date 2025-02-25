@@ -7,7 +7,7 @@ $configPath = "$HOME/.config";
 $localPath = "$HOME/.local/share";
 $appIcons = "$HOME/app-icons";
 $date = Get-Date;
-& "_dotExportList.ps1";
+& "$scriptPath/_dotExportList.ps1";
 
 $ErrorActionPreference = "Stop";
 do { Clear-Host; #* Starts the TUI loop
@@ -94,10 +94,10 @@ switch ($actionTui) {
             if ($continue -eq "y") {
                 slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config" -NoConfirm;
                 $dotHome | ForEach-Object {
-                    (New-Item -Path "$HOME" -Name "$_" -ItemType SymbolicLink -Value "$dotfilesLocation/$_" -Force)
+                    (Copy-Item -Path "$dotfilesLocation/$_" -Destination "$HOME/$_" -Force -ErrorAction SilentlyContinue)
                 };
                 $dotLocal | ForEach-Object {
-                    (New-Item -Path "$localPat" -Name "$_" -ItemType SymbolicLink -Value "$dotfilesLocation/local/share/$_" -Force)
+                    (Copy-Item -Path "$dotfilesLocation/local/share/$_" -Destination "$localPath/$_" -Force -ErrorAction SilentlyContinue)
                 };
             } 
         }
