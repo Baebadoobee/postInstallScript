@@ -7,6 +7,7 @@ $configPath = "$HOME/.config";
 $localPath = "$HOME/.local/share";
 $appIcons = "$HOME/app-icons";
 $date = Get-Date;
+& "$scriptPath/_dotExportList.ps1";
 
 $ErrorActionPreference = "Stop";
 do { Clear-Host; #* Starts the TUI loop
@@ -19,7 +20,6 @@ $options = @(
     " 4. Back",
     ""
 );
-& "$scriptPath/_dotExportList.ps1";
 & "$scriptPath/_tui.ps1";
 
 $actionTui = ([System.Console]::ReadKey($true)).KeyChar; # Read entry
@@ -94,11 +94,11 @@ switch ($actionTui) {
             if ($continue -eq "y") {
                 slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config" -NoConfirm;
                 foreach ($file in $dotHome) {
-                    Copy-Item -Path "$dotfilesLocation/$file" -Destination "$HOME" -Force;
+                    cp -f "$($dotfilesLocation)/$($file)" "$HOME";
                 }
 
                 foreach ($folder in $dotHome) {
-                    Copy-Item -Path "$dotfilesLocation/local/share/$folder" -Destination "$localPath" -Force;
+                    cp -rf "$($dotfilesLocation)/local/share/$($folder)" "$localPath";
                 }
 
                 # $dotHome | ForEach-Object {
