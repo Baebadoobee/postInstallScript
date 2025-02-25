@@ -94,23 +94,6 @@ switch ($actionTui) {
             if ($continue -eq "y") {
                 slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config" -NoConfirm;
             } 
-
-            if ($continue -eq "y") {
-                foreach ($file in $dotHome) {
-                    cp -f "$($dotfilesLocation)/$($file)" "$HOME";
-                }
-
-                foreach ($folder in $dotHome) {
-                    cp -rf "$($dotfilesLocation)/local/share/$($folder)" "$localPath";
-                }
-
-                # $dotHome | ForEach-Object {
-                #     (Copy-Item -Path "$dotfilesLocation/$_" -Destination "$HOME" -Force -ErrorAction SilentlyContinue)
-                # };
-                # $dotLocal | ForEach-Object {
-                #     (Copy-Item -Path "$dotfilesLocation/local/share/$_" -Destination "$localPath" -Force -ErrorAction SilentlyContinue)
-                # };
-            }
         }
         catch {
             Write-Output "An error occurred while installing dotfiles";
