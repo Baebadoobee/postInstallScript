@@ -1,6 +1,6 @@
 # Dotfile list
 # If you, just like me, want to add something more, feel free
-$dotConfig = @( 
+$dotConfig = @( # Dotfile list
     "alacritty",
     "BetterDiscord",
     "btop",
@@ -18,13 +18,11 @@ $dotConfig = @(
     "wlogout",
     "wofi"
 );
-
 $dotLocal = @( 
     "applications",
     'CipSoft GmbH',
     "powershell"
 );
-
 $dotHome = @(
     ".vimrc",
     ".bashrc"

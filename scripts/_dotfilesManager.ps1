@@ -7,7 +7,7 @@ $configPath = "$HOME/.config";
 $localPath = "$HOME/.local/share";
 $appIcons = "$HOME/app-icons";
 $date = Get-Date;
-& "$scriptPath/_dotExportList.ps1"
+& "_dotExportList.ps1";
 
 $ErrorActionPreference = "Stop";
 do { Clear-Host; #* Starts the TUI loop
@@ -65,8 +65,7 @@ switch ($actionTui) {
         }
     }
 
-    2 {
-        #* Importing dotfiles
+    2 { #* Importing dotfiles
         $repositoryLink = (Read-Host "Enter the repository URL");
         $importLocation = (Read-Host "Enter the import location (default: $dotfilesLocation)");
 
@@ -90,14 +89,17 @@ switch ($actionTui) {
 
     3 { #* Installation
         try {
-            # Config folder
-            slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config";
-            $dotHome | ForEach-Object {
-                (slinkf -Path "$dotfilesLocation/$_" -Destination "$HOME")
-            };
-            $dotLocal | ForEach-Object {
-                (slinkf -Path "$dotfilesLocation/local/share/$_" -Destination "$localPath")
-            };
+            Write-Output "WARNING: This will overwrite your files. Do you want to continue? (y/n)";
+            $continue = ([System.Console]::ReadKey($true)).KeyChar;
+            if ($continue -eq "y") {
+                slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config" -NoConfirm;
+                $dotHome | ForEach-Object {
+                    (New-Item -Path "$HOME" -Name "$_" -ItemType SymbolicLink -Value "$dotfilesLocation/$_" -Force)
+                };
+                $dotLocal | ForEach-Object {
+                    (New-Item -Path "$localPat" -Name "$_" -ItemType SymbolicLink -Value "$dotfilesLocation/local/share/$_" -Force)
+                };
+            } 
         }
         catch {
             Write-Output "An error occurred while installing dotfiles";
