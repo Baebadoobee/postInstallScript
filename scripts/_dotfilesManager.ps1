@@ -7,6 +7,7 @@ $configPath = "$HOME/.config";
 $localPath = "$HOME/.local/share";
 $appIcons = "$HOME/app-icons";
 $date = Get-Date;
+& "$scriptPath/_dotExportList.ps1"
 
 $ErrorActionPreference = "Stop";
 do { Clear-Host; #* Starts the TUI loop
@@ -24,11 +25,29 @@ $options = @(
 $actionTui = ([System.Console]::ReadKey($true)).KeyChar; # Read entry
 
 switch ($actionTui) {
-    1 { 
+    1 { #* Exporting dotfiles 
         # Remember to: git remote set-url origin https://<Token>@github.com/<Username>/<Repo>
-        #* Exporting dotfiles
+        if (!(Test-Path "$dotfilesLocation")) {
+            New-Item -Path "$HOME" -Name ".dotfiles" -ItemType Directory
+        }
 
-        & "$scriptPath/_dotExportList.ps1"
+        #-------------------------
+        #Pay some attention here, you might want to change the ErrorAction preference. 
+        $dotConfig | ForEach-Object {
+            Copy-Item -Path "$configPath/$_" -Destination "$dotfilesLocation/config" -Recurse -Force -ErrorAction SilentlyContinue
+        };
+
+        $dotLocal | ForEach-Object {
+            Copy-Item -Path "$localPath/$_" -Destination "$dotfilesLocation/local" -Recurse -Force -ErrorAction SilentlyContinue
+        };
+
+        $dotHome | ForEach-Object { 
+            Copy-Item -Path "$HOME/$_" -Destination "$dotfilesLocation" -Force -ErrorAction SilentlyContinue
+        };
+
+        Copy-Item -Path "$appIcons" -Destination "$dotfilesLocation/nativefierApps/appIcons" -Recurse -Force -ErrorAction SilentlyContinue;
+        #-------------------------
+        
         try {
             Push-Location;
             cd $dotfilesLocation;
@@ -69,14 +88,16 @@ switch ($actionTui) {
         }
     }
 
-    3 {
-        #* Installation
+    3 { #* Installation
         try {
             # Config folder
             slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config";
-
-            # Neofetch
-            sudo mv -f neofetch /bin/neofetch;
+            $dotHome | ForEach-Object {
+                (slinkf -Path "$dotfilesLocation/$_" -Destination "$HOME")
+            };
+            $dotLocal | ForEach-Object {
+                (slinkf -Path "$dotfilesLocation/local/share/$_" -Destination "$localPath")
+            };
         }
         catch {
             Write-Output "An error occurred while installing dotfiles";
