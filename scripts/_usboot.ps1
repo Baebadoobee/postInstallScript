@@ -11,23 +11,27 @@ $usbList = (Get-ChildItem /dev/disk/by-id/usb-*) | Where-Object {$_ -notmatch 'p
 $menuTitle = " Live USB Manager ";
 do {  
   $eNum = 0;
-  $options = ($usbList | ForEach-Object {
-    Write-Output " $eNum`. $($_.Name)";
-    ++$eNum
-  });
+  if (!($usbList)) {
+    $options = " No USB devices were find.";
+  }
+  else {
+    $options = ($usbList | ForEach-Object {
+        Write-Output " $eNum`. $($_.Name)";
+        ++$eNum
+    });
+  }
 
   Clear-Host; & "$scriptPath/_tui.ps1";
-  
-  $actionTui = Read-Host "Select a Device"
+  $actionTui = Read-Host "Select a Device";
   $usbTarget = $usbList[$actionTui];
-
+  
   switch ($actionTui) {
     {$usbTarget.Count -ge $_} {
       $options = ($isoList | ForEach-Object {
         Write-Output " $eNum`. $($_.Name)";
         ++$eNum
       });
-      Clear-Host; & "./_tui.ps1";
+      Clear-Host; & "$scriptPath/_tui.ps1";
 
       $actionSubTui = Read-Host "Select a ISO";
       $isoTarget = $isoList[$actionSubTui];

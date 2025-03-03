@@ -105,7 +105,7 @@ switch ($actionTui) {
   }
 
   4 { #* Quit
-    exit;
+    Exit;
   }
 }
 #-------------------------
