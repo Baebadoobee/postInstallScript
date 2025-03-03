@@ -14,98 +14,99 @@ do { Clear-Host; #* Starts the TUI loop
 #-------------------------
 $menuTitle = " Dotfile Manager ";
 $options = @(
-    " 1. Export dotfiles",
-    " 2. Import dotfiles",
-    " 3. Install dotfiles",
-    " 4. Back",
-    ""
+  " 1. Export dotfiles",
+  " 2. Import dotfiles",
+  " 3. Install dotfiles",
+  " 4. Back",
+  "",
+  ""
 );
 & "$scriptPath/_tui.ps1";
 
 $actionTui = ([System.Console]::ReadKey($true)).KeyChar; # Read entry
 
 switch ($actionTui) {
-    1 { #* Exporting dotfiles 
-        # Remember to: git remote set-url origin https://<Token>@github.com/<Username>/<Repo>
-        if (!(Test-Path "$dotfilesLocation")) {
-            New-Item -Path "$HOME" -Name ".dotfiles" -ItemType Directory
-        }
-
-        #-------------------------
-        #Pay some attention here, you might want to change the ErrorAction preference. 
-        $dotConfig | ForEach-Object {
-            Copy-Item -Path "$configPath/$_" -Destination "$dotfilesLocation/config" -Recurse -Force -ErrorAction SilentlyContinue
-        };
-
-        $dotLocal | ForEach-Object {
-            Copy-Item -Path "$localPath/$_" -Destination "$dotfilesLocation/local" -Recurse -Force -ErrorAction SilentlyContinue
-        };
-
-        $dotHome | ForEach-Object { 
-            Copy-Item -Path "$HOME/$_" -Destination "$dotfilesLocation" -Force -ErrorAction SilentlyContinue
-        };
-
-        Copy-Item -Path "$appIcons" -Destination "$dotfilesLocation/nativefierApps/appIcons" -Recurse -Force -ErrorAction SilentlyContinue;
-        #-------------------------
-        
-        try {
-            Push-Location;
-            cd $dotfilesLocation;
-            git add .;
-            git commit -m "Dotfiles from $date";
-            git push -u origin main;
-            Pop-Location;
-            Pause;
-        }
-        catch {
-            Write-Output "An error occurred while exporting dotfiles";
-            $_;
-            Pause;
-            Continue;
-        }
+  1 { #* Exporting dotfiles 
+    # Remember to: git remote set-url origin https://<Token>@github.com/<Username>/<Repo>
+    if (!(Test-Path "$dotfilesLocation")) {
+      New-Item -Path "$HOME" -Name ".dotfiles" -ItemType Directory
     }
 
-    2 { #* Importing dotfiles
-        $repositoryLink = (Read-Host "Enter the repository URL");
-        $importLocation = (Read-Host "Enter the import location (default: $dotfilesLocation)");
+    #-------------------------
+    #Pay some attention here, you might want to change the ErrorAction preference. 
+    $dotConfig | ForEach-Object {
+      Copy-Item -Path "$configPath/$_" -Destination "$dotfilesLocation/config" -Recurse -Force -ErrorAction SilentlyContinue
+    };
 
-        if ($importLocation -eq "") {
-            $importLocation = $dotfilesLocation;
-        }
-        elseif (!(Test-Path $importLocation)) {
-            New-Item -ItemType Directory -Path $importLocation;
-        }
-        
-        try {
-            irepo -Path "$repositoryLink" -Destination "$importLocation";
-        }
-        catch {
-            Write-Output "An error occurred while importing dotfiles";
-            $_;
-            Pause;
-            Continue;
-        }
-    }
+    $dotLocal | ForEach-Object {
+      Copy-Item -Path "$localPath/$_" -Destination "$dotfilesLocation/local" -Recurse -Force -ErrorAction SilentlyContinue
+    };
 
-    3 { #* Installation
-        try {
-            Write-Output "WARNING: This will overwrite your files. Do you want to continue? (y/n)";
-            $continue = ([System.Console]::ReadKey($true)).KeyChar;
-            if ($continue -eq "y") {
-                slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config" -NoConfirm;
-            } 
-        }
-        catch {
-            Write-Output "An error occurred while installing dotfiles";
-            $_;
-            Pause;
-            Continue;
-        }
-    }
+    $dotHome | ForEach-Object { 
+      Copy-Item -Path "$HOME/$_" -Destination "$dotfilesLocation" -Force -ErrorAction SilentlyContinue
+    };
 
-    4 { #* Quit
-        exit;
+    Copy-Item -Path "$appIcons" -Destination "$dotfilesLocation/nativefierApps/appIcons" -Recurse -Force -ErrorAction SilentlyContinue;
+    #-------------------------
+    
+    try {
+      Push-Location;
+      cd $dotfilesLocation;
+      git add .;
+      git commit -m "Dotfiles from $date";
+      git push -u origin main;
+      Pop-Location;
+      Pause;
     }
+    catch {
+      Write-Output "An error occurred while exporting dotfiles";
+      $_;
+      Pause;
+      Continue;
+    }
+  }
+
+  2 { #* Importing dotfiles
+    $repositoryLink = (Read-Host "Enter the repository URL");
+    $importLocation = (Read-Host "Enter the import location (default: $dotfilesLocation)");
+
+    if ($importLocation -eq "") {
+      $importLocation = $dotfilesLocation;
+    }
+    elseif (!(Test-Path $importLocation)) {
+      New-Item -ItemType Directory -Path $importLocation;
+    }
+    
+    try {
+      irepo -Path "$repositoryLink" -Destination "$importLocation";
+    }
+    catch {
+      Write-Output "An error occurred while importing dotfiles";
+      $_;
+      Pause;
+      Continue;
+    }
+  }
+
+  3 { #* Installation
+    try {
+      Write-Output "WARNING: This will overwrite your files. Do you want to continue? (y/n)";
+      $continue = ([System.Console]::ReadKey($true)).KeyChar;
+      if ($continue -eq "y") {
+        slinkf -Path "$dotfilesLocation/config" -Destination "$HOME/.config" -NoConfirm;
+      } 
+    }
+    catch {
+      Write-Output "An error occurred while installing dotfiles";
+      $_;
+      Pause;
+      Continue;
+    }
+  }
+
+  4 { #* Quit
+    exit;
+  }
 }
 #-------------------------
 } while ($true)
